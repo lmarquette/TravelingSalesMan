@@ -11,6 +11,11 @@ using namespace std;
 
 #pragma comment(linker,"/subsystem:console")
 
+struct City
+{
+	float x, y, w, h;
+};
+
 
 namespace Simulation
 {
@@ -20,6 +25,12 @@ namespace Simulation
 
 	unsigned char prev_key_state[256];
 	unsigned char *keys = NULL;
+
+	int *start_node;
+	int *end_node;
+	float *distance;
+	const int num_cities = 5;
+	City city[num_cities];
 
 	void init()
 	{
@@ -41,6 +52,25 @@ namespace Simulation
 		YOUR INIT CODE
 		
 		*/
+		distance = (float*)malloc(sizeof(float)*num_cities);
+		start_node = (int*)malloc(sizeof(int)*num_cities);
+		end_node = (int*)malloc(sizeof(int)*num_cities);
+	}
+
+	void create_Random_Nodes()
+	{
+		for (int i = 0; i < num_cities; i++)
+		{
+			city[i].x = (screen_width / 2) + rand() % 100 + (-100);
+			city[i].y = (screen_height / 2) + rand() % 100 + (-100);
+			city[i].w = 50;
+			city[i].h = 50;
+		}
+	}
+
+	void retrieve_nodes()
+	{
+		create_Random_Nodes();
 	}
 
 	void update()
@@ -73,11 +103,15 @@ namespace Simulation
 		//clear screen with white
 		SDL_RenderClear(renderer);
 
-		/*
-
-		YOUR DRAW CODE
-
-		*/
+		for (int i = 0; i < num_cities; i++)
+		{
+			SDL_Rect rect;
+			rect.h = city[i].h;
+			rect.w = city[i].w;
+			rect.x = city[i].x;
+			rect.y = city[i].y;
+			SDL_RenderFillRect(renderer, &rect);
+		}
 		
 
 		//flip buffers
