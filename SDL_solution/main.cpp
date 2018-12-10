@@ -21,7 +21,15 @@ namespace Simulation
 	unsigned char prev_key_state[256];
 	unsigned char *keys = NULL;
 
-	void init()
+
+	struct data
+	{
+		float *distance;
+		int num_cities;
+
+	};
+
+	void init(data *d)
 	{
 		SDL_Init(SDL_INIT_VIDEO);
 
@@ -41,6 +49,13 @@ namespace Simulation
 		YOUR INIT CODE
 		
 		*/
+		d->num_cities = 5;
+		d->distance = (float*)malloc(sizeof(float)*d->num_cities);
+	}
+
+	void retrieve_nodes()
+	{
+
 	}
 
 	void update()
@@ -73,11 +88,10 @@ namespace Simulation
 		//clear screen with white
 		SDL_RenderClear(renderer);
 
-		/*
+		for (int i = 0; i < ; i++)
+		{
 
-		YOUR DRAW CODE
-
-		*/
+		}
 		
 
 		//flip buffers
